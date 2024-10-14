@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# ------------------------------------------------------------------
+# [jhwshin] generate_fstab
+#   Description:
+#       generate fstab for ext4 and ntfs
+#       !! MAKE SURE TO LABEL DRIVES FIRST
+#
+#   Dependencies:
+#       - e2label (ext4)
+#       - ntfslabel (ntfs)
+# ------------------------------------------------------------------
+
+EXT4_OPTS="defaults,rw,relatime,nofail,discard                   0   0"
+# gid 998 = wheel
+NTFS_OPTS="defaults,rw,gid=998,nofail,windows_names,umask=0002   0   0"
+
+USAGE="Usage: my_genfstab sda1 sdb2 sdc1 ..."
+
+if [[ $# == 0 ]]; then
+    echo "${USAGE}"
+else
+    for i in "${@}"; do
+        out=$(lsblk "/dev/${i}" -o NAME,UUID,FSTYPE,LABEL -n)
+        name=$(echo ${out} | awk '{ print $1 }')
+        uuid=$(echo ${out} | awk '{ print $2 }')
+        fstype=$(echo ${out} | awk '{ print $3 }')
+        label=$(echo ${out} | awk '{ print $4 }')
+
+        echo "# ${label}"
+        echo "# /dev/${name}"
+
+        if [[ ! -d "/mnt/${label}" ]]; then
+            sudo mkdir /mnt/${label}
+        fi
+
+        if [[ $fstype == "ext4" ]]; then
+            printf "UUID=${uuid}              /mnt/${label}   ext4        ${EXT4_OPTS}\n\n"
+        elif [[ $fstype == "ntfs" ]]; then
+            printf "UUID=${uuid}              /mnt/${label}   ntfs-3g     ${NTFS_OPTS}\n\n"
+        fi
+
+    done
+fi
