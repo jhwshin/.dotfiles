@@ -3,3 +3,9 @@ __pycache__/
 
 # local bookmarks
 **/gtk/.config/gtk-3.0/bookmarks
+
+# cloned repos
+**/zsh/.zsh/.oh-my-zsh
+
+# log files
+**/btop/.config/btop/btop.log
