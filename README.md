@@ -1,1 +1,1 @@
-# x-dotfiles
+# dotfiles

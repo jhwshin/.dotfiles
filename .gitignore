@@ -1,0 +1,5 @@
+# python
+__pycache__/
+
+# local bookmarks
+**/gtk/.config/gtk-3.0/bookmarks
