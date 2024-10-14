@@ -37,6 +37,7 @@ set $POWER_MANAGEMENT ~/.scripts/_power-management
 # /etc/geoclue/geoclue.conf
 # /usr/lib/geoclue-2.0/demos/where-am-i
 set $GEOLOCATION /usr/lib/geoclue-2.0/demos/agent
+set $LIBINPUT_GESTURES libinput-gestures-setup stop desktop autostart start
 
 exec --no-startup-id $GNOME_POLKIT
 exec --no-startup-id $PLAYERCTL
@@ -44,6 +45,7 @@ exec --no-startup-id $WALLPAPER
 exec --no-startup-id $COMPOSITOR
 exec --no-startup-id $POWER_MANAGEMENT
 exec --no-startup-id $GEOLOCATION
+exec --no-startup-id $LIBINPUT_GESTURES
 
 # ------------------------------------------------
 #   System Tray
