@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+TOGGLE_FILE="/tmp/redshift_on"
+COMMAND=$1
+
+killall redshift
+
+if [[ $COMMAND == "toggle" ]]; then
+    if [ ! -f "${TOGGLE_FILE}" ]; then
+        redshift -O 3700 && touch "${TOGGLE_FILE}"
+    else
+        redshift -x && rm "${TOGGLE_FILE}"
+    fi
+elif [[ $COMMAND == "auto" ]]; then
+    # requires geoclue
+    redshift &
+    touch "${TOGGLE_FILE}"
+else
+    echo "usage: toggle_redshift [toggle|auto]"
+fi
