@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# ------------------------------------------------------------------
+# [jhwshin] _power-management (laptop)
+#
+#   Description:
+#       power management using xidlehook
+#           dim, lockscreen, display off, hibernate
+#
+#       if using nvidia make sure to disable:
+#	        $ systemctl disable nvidia-suspend
+#	        $ systemctl disable nvidia-hibernate
+#	        $ systemctl disable nvidia-resume
+#
+#   Dependencies:
+#       - xidlehook
+#       - lockscreen (i3lock-color)
+#       - caffeine-ng ('--not-when-audio' currently doesn't work properly)
+# ------------------------------------------------------------------
+
+# change to brightnessctl
+
+DISPLAY_1="eDP1"
+LOCKSCREEN_CMD="lockscreen"
+
+xidlehook \
+    --not-when-audio \
+    --timer 300     "xrandr --output ${DISPLAY_1} --brightness .5" \
+                    "xrandr --output ${DISPLAY_1} --brightness 1" \
+    --timer 300     "${LOCKSCREEN_CMD}" "xrandr --output ${DISPLAY_1} --brightness 1" \
+    --timer 300     "xrandr --output ${DISPLAY_1} --brightness 1; xset dpms force standby" "" \
+    --timer 300     "hibernate-if-unplugged" ""
+
+# haven't fixed condition = unplugged after it runs final command and doesn't , it wont hibernate

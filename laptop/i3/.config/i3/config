@@ -15,10 +15,12 @@ set $DISPLAY_1 eDP1
 #   System Shortcuts
 # ------------------------------------------------
 
+set $POWERMENU ~/.config/rofi/powermenu.sh
 set $SCREENSHOT "mkdir ~/Screenshots; flameshot gui --path ~/Screenshots/%Y-%m-%d_%H-%M-%S --delay 1000"
 
 bindsym $MOD+Shift+r restart
 bindsym $MOD+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $MOD+Delete exec --no-startup-id $POWERMENU
 bindsym Print exec --no-startup-id $SCREENSHOT
 
 # ------------------------------------------------
@@ -31,6 +33,7 @@ set $GNOME_POLKIT /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 set $PLAYERCTL playerctld daemon
 set $WALLPAPER feh --bg-fill ~/.wallpapers/wallpaper_1.jpg
 set $COMPOSITOR picom --config ~/.config/picom/picom.conf
+set $POWER_MANAGEMENT ~/.scripts/_power-management
 # /etc/geoclue/geoclue.conf
 # /usr/lib/geoclue-2.0/demos/where-am-i
 set $GEOLOCATION /usr/lib/geoclue-2.0/demos/agent
@@ -39,6 +42,7 @@ exec --no-startup-id $GNOME_POLKIT
 exec --no-startup-id $PLAYERCTL
 exec --no-startup-id $WALLPAPER
 exec --no-startup-id $COMPOSITOR
+exec --no-startup-id $POWER_MANAGEMENT
 exec --no-startup-id $GEOLOCATION
 
 # ------------------------------------------------
