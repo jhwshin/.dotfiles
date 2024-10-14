@@ -6,6 +6,7 @@ __pycache__/
 
 # cloned repos
 **/zsh/.zsh/.oh-my-zsh
+**/ranger/.config/ranger/plugin
 
 # log files
 **/btop/.config/btop/btop.log
