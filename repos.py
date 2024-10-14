@@ -34,5 +34,11 @@ REPOS = [
     {
         "url" : "https://github.com/MichaelAquilina/zsh-you-should-use",
         "path": OHMYZSH_PATH / "custom/plugins/you-should-use"
+    },
+    
+    # ranger plugin
+    {
+        "url" : "https://github.com/alexanderjeurissen/ranger_devicons",
+        "path" : DOTFILES_ROOT_PATH / "common/ranger/.config/ranger/plugins/ranger_devicons"
     }
 ]
