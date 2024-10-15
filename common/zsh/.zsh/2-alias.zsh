@@ -40,7 +40,7 @@ alias dd="dd status=progress"
 # gnu safety
 alias mkdir="mkdir -pv"
 mkcd() { mkdir "$1" && cd "$1"; }
-alias rmdir="rmdir -pv"
+alias rmdir="rmdir -v"
 alias rm="rm -Iv"
 alias cp="cp -ivr"
 alias mv="mv -iv"
