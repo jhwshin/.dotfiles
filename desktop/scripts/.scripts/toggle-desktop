@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# ------------------------------------------------------------------
+# [jhwshin] toggle-desktop (desktop)
+#
+#   Description:
+#       toggles reserved i3 workspace to show desktop 
+#
+#   Dependencies:
+#       - jq
+# ------------------------------------------------------------------
+
+# i3 desktop workspace names
+DESKTOP_WKS_1_NAME="Desktop 1"
+DESKTOP_WKS_2_NAME="Desktop 2"
+
+# save state and last active workspace
+STATE_PATH="/tmp/i3_desktop_state"
+LAST_ACTIVE_PATH="/tmp/i3_desktop_last_active"
+
+# if desktop hasn't been toggled
+if [[ ! -f ${STATE_PATH} ]]; then
+
+    echo "$(i3-msg -t get_workspaces | jq '.[] | select(.visible) | .name' | tr -d "\"")" > ${STATE_PATH}
+    echo "$(i3-msg -t get_workspaces | jq '.[] | select(.focused) | .name' | tr -d "\"")" > ${LAST_ACTIVE_PATH}
+
+    i3-msg "workspace ${DESKTOP_WKS_1_NAME}; workspace ${DESKTOP_WKS_2_NAME}" > /dev/null
+
+# if desktop has been toggled
+else
+    LAST_ACTIVE_WKS=$(cat ${LAST_ACTIVE_PATH})
+
+    while read line; do
+
+        # save last workspace focus until last
+        if [[ $line != ${LAST_ACTIVE_WKS} ]]; then
+            i3-msg "workspace $line" > /dev/null
+        fi
+    done < ${STATE_PATH}
+
+    # focus active last workspace
+    i3-msg "workspace ${LAST_ACTIVE_WKS}"
+
+    rm ${STATE_PATH}
+fi
