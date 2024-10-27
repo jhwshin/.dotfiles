@@ -28,11 +28,13 @@ set $GNOME_POLKIT       "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent
 set $PLAYERCTL          "playerctld daemon"
 set $WALLPAPER          "feh --bg-fill ~/.wallpapers/wallpaper_1.jpg ~/.wallpapers/wallpaper_2.jpg"
 set $COMPOSITOR         "picom --config ~/.config/picom/picom.conf"
+set $POWER_MANAGEMENT   "~/.scripts/_power-management"
 
 exec --no-startup-id $GNOME_POLKIT
 exec --no-startup-id $PLAYERCTL
 exec --no-startup-id $WALLPAPER
 exec --no-startup-id $COMPOSITOR
+exec --no-startup-id $POWER_MANAGEMENT
 
 # ------------------------------------------------
 #   System Tray
@@ -50,7 +52,7 @@ exec --no-startup-id $KVM
 #   Launchers
 # ------------------------------------------------
 
-set $LAUNCHER           "dmenu-run"
+set $LAUNCHER           dmenu_run
 set $TERMINAL           kitty
 
 bindsym $MOD+d exec --no-startup-id $LAUNCHER
