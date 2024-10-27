@@ -6,8 +6,12 @@ import subprocess
 import shlex
 import os
 
+from repos import *
+
+
 DOTFILES_ROOT_PATH = Path(__file__).parent
 HOME_PATH = Path(os.environ["HOME"])
+DOTFILES_PRIVATE_INSTALL = DOTFILES_ROOT_PATH / ".dotfiles-private" / "install.py"
 
 def selected_device():
     try:
@@ -82,5 +86,12 @@ if __name__ == "__main__":
     device = selected_device()
     run_stow(DOTFILES_ROOT_PATH / device, HOME_PATH)
     run_stow(DOTFILES_ROOT_PATH / 'common', HOME_PATH)
+
+    clone_repos(REPOS)
+
+    if DOTFILES_PRIVATE_INSTALL.exists():
+        run_bash_cmd(f'python {DOTFILES_PRIVATE_INSTALL}')
+    else:
+        print(".dotfiles-private install script not found. Skipping...\n")
 
     print("<< .dotfiles installation complete!\n")

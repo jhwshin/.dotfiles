@@ -1,0 +1,9 @@
+# python
+__pycache__/
+
+# cloned repos
+**/zsh/.zsh/.oh-my-zsh
+
+# log files
+**/btop/.config/btop/btop.log
+**/mpv/.config/mpv/mpvHistory.log
