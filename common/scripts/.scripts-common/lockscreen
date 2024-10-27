@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+# ------------------------------------------------------------------
+# [jhwshin] lockscreen
+#
+#   Description:
+#       i3lock-color script for lockscreen
+#
+#   Dependencies:
+#       - i3lock-color
+# ------------------------------------------------------------------
+
+B='#00000000'  # blank
+C='#ffffff22'  # clearish
+D='#f8f8f2cc'  # default
+T='#f8f8f2ee'  # text
+W='#880000bb'  # wrong
+V='#a6e22ebb'  # verifying
+
+i3lock \
+    --insidever-color=$C   \
+    --ringver-color=$V     \
+    \
+    --insidewrong-color=$C \
+    --ringwrong-color=$W   \
+    \
+    --inside-color=$B      \
+    --ring-color=$D        \
+    --line-color=$B        \
+    --separator-color=$D   \
+    \
+    --verif-color=$T        \
+    --wrong-color=$T        \
+    --time-color=$T        \
+    --date-color=$T        \
+    --layout-color=$T      \
+    --keyhl-color=$V       \
+    --bshl-color=$W        \
+    \
+    --screen 1            \
+    --blur 5              \
+    --clock               \
+    --time-str="%I:%M:%S %p"  \
+    --time-size=50 \
+    --time-pos="ix:iy-20" \
+    --date-size=30 \
+    --date-pos="ix:iy+60" \
+    --date-str="%A, %d | %B" \
+    -f                  \
+    --radius 180 \
+    --ring-width 10 \
+    --verif-text="VERIFYING..." \
+    --wrong-text="oof that sucks" \
