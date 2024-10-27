@@ -29,12 +29,14 @@ set $PLAYERCTL          "playerctld daemon"
 set $WALLPAPER          "feh --bg-fill ~/.wallpapers/wallpaper_1.jpg ~/.wallpapers/wallpaper_2.jpg"
 set $COMPOSITOR         "picom --config ~/.config/picom/picom.conf"
 set $POWER_MANAGEMENT   "~/.scripts/_power-management"
+set $LIBINPUT_GESTURES  "libinput-gestures-setup stop desktop autostart start"
 
 exec --no-startup-id $GNOME_POLKIT
 exec --no-startup-id $PLAYERCTL
 exec --no-startup-id $WALLPAPER
 exec --no-startup-id $COMPOSITOR
 exec --no-startup-id $POWER_MANAGEMENT
+exec --no-startup-ud $LIBINPUT_GESTURES
 
 # ------------------------------------------------
 #   System Tray
