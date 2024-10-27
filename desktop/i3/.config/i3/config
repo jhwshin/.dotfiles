@@ -53,11 +53,13 @@ exec --no-startup-id $KVM
 #   Launchers
 # ------------------------------------------------
 
-set $LAUNCHER           "~/.config/rofi/rofi-common/launcher.sh"
+set $LAUNCHER           "~/.config/rofi-common/launcher.sh"
 set $TERMINAL           kitty
+set $POWERMENU          "~/.config/rofi/powermenu.sh"
 
 bindsym $MOD+d exec --no-startup-id $LAUNCHER
 bindsym $MOD+Return exec $TERMINAL
+bindsym $MOD+Delete exec --no-startup-id $POWERMENU
 
 # ------------------------------------------------
 #   Audio Control
