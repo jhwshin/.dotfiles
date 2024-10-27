@@ -53,7 +53,7 @@ exec --no-startup-id $KVM
 #   Launchers
 # ------------------------------------------------
 
-set $LAUNCHER           dmenu_run
+set $LAUNCHER           "~/.config/rofi/rofi-common/launcher.sh"
 set $TERMINAL           kitty
 
 bindsym $MOD+d exec --no-startup-id $LAUNCHER
