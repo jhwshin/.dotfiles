@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 import subprocess
 import shlex
+import os
 
 DOTFILES_ROOT_PATH = Path(__file__).parent
 HOME_PATH = Path(os.environ["HOME"])
@@ -66,7 +67,7 @@ def run_stow(src, dst):
     if fail:
         print("-- !! stow FAILED.\n")
     else:
-        print("-- All stow SUCCESSFULLY linked!\n")
+        print("-- stow SUCCESSFULLY linked!\n")
 
 def clone_repos(repos):
     print("-- Cloning repos...\n")
