@@ -1,0 +1,443 @@
+# ------------------------------------------------
+#   Global Configs
+# ------------------------------------------------
+
+font pango: SauceCodePro Nerd Font 14
+set $STATUS_BAR_FONT Terminess Nerd Font 18
+
+# windows key
+set $MOD Mod4
+set $ALT Mod1
+
+set $DISPLAY_1 DP-4
+set $DISPLAY_2 HDMI-0
+
+# ------------------------------------------------
+#   System Shortcuts
+# ------------------------------------------------
+
+bindsym $MOD+Shift+r restart
+bindsym $MOD+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# ------------------------------------------------
+#   Autostart
+# ------------------------------------------------
+
+# popup for privileged access
+set $GNOME_POLKIT       "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+# required to keep track of currently active media player
+set $PLAYERCTL          "playerctld daemon"
+set $WALLPAPER          "feh --bg-fill ~/.wallpapers/wallpaper_1.jpg ~/.wallpapers/wallpaper_2.jpg"
+set $COMPOSITOR         "picom --config ~/.config/picom/picom.conf"
+
+exec --no-startup-id $GNOME_POLKIT
+exec --no-startup-id $PLAYERCTL
+exec --no-startup-id $WALLPAPER
+exec --no-startup-id $COMPOSITOR
+
+# ------------------------------------------------
+#   System Tray
+# ------------------------------------------------
+
+set $BLUETOOTH          "blueman-applet"
+set $NETWORK            "nm-applet"
+set $KVM                "barrier"
+
+exec --no-startup-id $BLUETOOTH
+exec --no-startup-id $NETWORK
+exec --no-startup-id $KVM
+
+# ------------------------------------------------
+#   Launchers
+# ------------------------------------------------
+
+set $LAUNCHER           "dmenu-run"
+set $TERMINAL           kitty
+
+bindsym $MOD+d exec --no-startup-id $LAUNCHER
+bindsym $MOD+Return exec $TERMINAL
+
+# ------------------------------------------------
+#   Audio Control
+# ------------------------------------------------
+
+# audio
+bindsym XF86AudioRaiseVolume exec --no-startup-id   "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+bindsym XF86AudioLowerVolume exec --no-startup-id   "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
+bindsym XF86AudioMute exec --no-startup-id          "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+# alternatively
+bindsym $MOD+equal exec --no-startup-id             "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+bindsym $MOD+minus exec --no-startup-id             "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%-"
+bindsym $MOD+m exec --no-startup-id                 "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+# mic
+bindsym XF86AudioMicMute exec --no-startup-id       "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+
+# alternatively
+bindsym $MOD+Shift+m exec --no-startup-id           "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+
+# ------------------------------------------------
+#   Media Control
+# ------------------------------------------------
+
+# media
+bindsym XF86AudioPlay exec --no-startup-id          "playerctl play"
+bindsym XF86AudioPause exec --no-startup-id         "playerctl pause"
+bindsym XF86AudioNext exec --no-startup-id          "playerctl next"
+bindsym XF86AudioPrev exec --no-startup-id          "playerctl previous"
+
+# alternatively
+bindsym $MOD+p exec --no-startup-id                 "playerctl play-pause"
+bindsym $MOD+bracketright exec --no-startup-id      "playerctl next"
+bindsym $MOD+bracketleft exec --no-startup-id       "playerctl previous"
+
+# ------------------------------------------------
+#   Scratchpad
+# ------------------------------------------------
+
+bindsym $MOD+grave scratchpad show
+bindsym $MOD+Shift+grave floating enable, resize set 1200 900, move position center, move scratchpad
+
+# ------------------------------------------------
+#   Workspace
+# ------------------------------------------------
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "Desktop 1"
+set $ws11 "Desktop 2"
+
+# switch to workspace
+bindsym $MOD+1 workspace number $ws1
+bindsym $MOD+2 workspace number $ws2
+bindsym $MOD+3 workspace number $ws3
+bindsym $MOD+4 workspace number $ws4
+bindsym $MOD+5 workspace number $ws5
+bindsym $MOD+6 workspace number $ws6
+bindsym $MOD+7 workspace number $ws7
+bindsym $MOD+8 workspace number $ws8
+bindsym $MOD+9 workspace number $ws9
+
+# workspace to display
+workspace $ws1 output $DISPLAY_1
+workspace $ws2 output $DISPLAY_1
+workspace $ws3 output $DISPLAY_1
+workspace $ws4 output $DISPLAY_1
+workspace $ws5 output $DISPLAY_1
+workspace $ws6 output $DISPLAY_2
+workspace $ws7 output $DISPLAY_2
+workspace $ws8 output $DISPLAY_2
+workspace $ws9 output $DISPLAY_2
+workspace $ws10 output $DISPLAY_1
+workspace $ws10 output $DISPLAY_2
+
+# move focused container to workspace
+bindsym $MOD+Shift+1 move container to workspace number $ws1
+bindsym $MOD+Shift+2 move container to workspace number $ws2
+bindsym $MOD+Shift+3 move container to workspace number $ws3
+bindsym $MOD+Shift+4 move container to workspace number $ws4
+bindsym $MOD+Shift+5 move container to workspace number $ws5
+bindsym $MOD+Shift+6 move container to workspace number $ws6
+bindsym $MOD+Shift+7 move container to workspace number $ws7
+bindsym $MOD+Shift+8 move container to workspace number $ws8
+bindsym $MOD+Shift+9 move container to workspace number $ws9
+
+# move to workspace
+bindsym $MOD+Ctrl+Right workspace next_on_output
+bindsym $MOD+Ctrl+Left workspace prev_on_output
+
+# alternatively
+bindsym $MOD+Ctrl+l workspace next_on_output
+bindsym $MOD+Ctrl+h workspace prev_on_output
+
+bindsym $MOD+Shift+Ctrl+Right workspace next_on_output
+bindsym $MOD+Shift+Ctrl+Left workspace prev_on_output
+
+# alternatively
+bindsym $MOD+Shift+Ctrl+l move container to workspace next_on_output; workspace next_on_output
+bindsym $MOD+Shift+Ctrl+h move container to workspace prev_on_output; workspace prev_on_output
+
+# workspace_auto_back_and_forth yes
+workspace_auto_back_and_forth yes
+bindsym $MOD+b workspace back_and_forth
+bindsym $MOD+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+
+# ------------------------------------------------
+#   Windows
+# ------------------------------------------------
+
+# windows
+floating_modifier $MOD
+focus_follows_mouse no
+tiling_drag modifier titlebar
+
+# kill window
+bindsym $MOD+Shift+q kill
+
+# change focus
+bindsym $MOD+h focus left
+bindsym $MOD+j focus down
+bindsym $MOD+k focus up
+bindsym $MOD+l focus right
+
+# alternatively
+bindsym $MOD+Left focus left
+bindsym $MOD+Down focus down
+bindsym $MOD+Up focus up
+bindsym $MOD+Right focus right
+
+# move focused window
+bindsym $MOD+Shift+h move left
+bindsym $MOD+Shift+j move down
+bindsym $MOD+Shift+k move up
+bindsym $MOD+Shift+l move right
+
+# alternatively
+bindsym $MOD+Shift+Left move left
+bindsym $MOD+Shift+Down move down
+bindsym $MOD+Shift+Up move up
+bindsym $MOD+Shift+Right move right
+
+# cycle focus
+focus_wrapping yes
+bindsym $MOD+Tab workspace next_on_output 
+bindsym $MOD+Shift+Tab workspace prev_on_output
+
+# layout cycle
+bindsym $MOD+g split toggle
+bindsym $MOD+w layout toggle tabbed split
+
+# enter fullscreen mode for the focused container
+bindsym $MOD+f fullscreen toggle
+
+# toggle tiling / floating
+bindsym $MOD+Shift+space floating toggle, resize set 1000 900, move position center
+
+# change focus between tiling / floating windows
+bindsym $MOD+space focus mode_toggle
+
+# center floating
+bindsym $MOD+Ctrl+space move position center
+
+# focus the parent container
+bindsym $MOD+a focus parent
+
+# focus the child container
+bindsym $MOD+z focus child
+
+# focus urgent
+bindsym $MOD+x [urgent=latest] focus
+
+# toggle sticky
+bindsym $MOD+Shift+s sticky toggle
+
+# ------------------------------------------------
+#   Window Rules
+# ------------------------------------------------
+
+# enable floating for app pop ups and menu
+for_window [window_role="About"]            floating enable
+for_window [window_role="Organizer"]        floating enable
+for_window [window_role="Preferences"]      floating enable
+for_window [window_role="bubble"]           floating enable
+for_window [window_role="page-info"]        floating enable
+for_window [window_role="pop-up"]           floating enable
+for_window [window_role="task_dialog"]      floating enable
+for_window [window_role="toolbox"]          floating enable
+for_window [window_role="webconsole"]       floating enable
+for_window [window_type="dialog"]           floating enable
+for_window [window_type="menu"]             floating enable
+
+# enable floating for certain apps
+for_window [class="pavucontrol"]            floating enable, resize set 800 800, move position center
+for_window [class="Blueman-manager"]        floating enable, move position center
+for_window [class="Nm-connection-editor"]   floating enable, move position center
+
+for_window [class="Barrier"]                floating enable, move position center
+for_window [class="gnome-calculator"]       floating enable, move position center
+for_window [class="Bitwarden"]              floating enable, resize set 800 800, move position center
+for_window [class="Thunar"]                 floating enable, resize set 800 800, move position center
+for_window [class="Deluge"]                 floating enable, resize set 1200 900, move position center
+for_window [class="mpv"]                    floating enable, resize set 1200 900, move position center
+for_window [class="Spotify"]                floating enable, resize set 1200 900, move position center
+
+# ------------------------------------------------
+#   Borders and Gaps
+# ------------------------------------------------
+
+# remove titlebar
+default_border pixel 1
+default_floating_border pixel 1
+
+# border
+set $BORDER_PIXEL 1
+# set $BORDER_FLOATING_PIXEL 1
+set $GAPS_INNER 5
+set $GAPS_OUTER -2
+
+# toggle border
+bindsym $MOD+y border toggle $BORDER_PIXEL
+
+# Set inner/outer gaps
+gaps inner $GAPS_INNER
+gaps outer $GAPS_OUTER
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+smart_gaps on
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+smart_borders on
+hide_edge_borders smart
+
+# Press $MOD+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $MOD+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+
+        bindsym $MOD+Shift+g mode "default"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym $MOD+Shift+g mode "default"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym $MOD+Shift+g mode "default"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# ------------------------------------------------
+#   Resize
+# ------------------------------------------------
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym h resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $MOD+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $MOD+r mode "default"
+}
+
+bindsym $MOD+r mode "resize"
+
+# ------------------------------------------------
+#   Status Bar
+# ------------------------------------------------
+
+bindsym $MOD+t bar mode toggle
+
+# primary
+bar {
+    status_command          i3status
+    id                      bar-1
+    position                top
+    mode                    dock
+    hidden_state            hide
+    output                  $DISPLAY_1
+    workspace_buttons       yes
+    tray_output             primary
+    binding_mode_indicator  yes
+    modifier                none
+
+    font pango:             $STATUS_BAR_FONT
+    colors {
+        background #000000
+        statusline #ffffff
+
+        focused_workspace  #272822 #a6e22e #3e3d32
+        active_workspace   #333333 #5f676a #ffffff
+        inactive_workspace #75715e #3e3d32 #f8f8f2
+        urgent_workspace   #ffffff #900000 #ffffff
+
+        binding_mode       #ffffff #900000 #ffffff
+    }
+}
+
+# secondary
+bar {
+    status_command          i3status
+    id                      bar-2
+    position                top
+    mode                    dock
+    hidden_state            hide
+    output                  $DISPLAY_2
+    workspace_buttons       yes
+    tray_output             primary
+    binding_mode_indicator  yes
+    modifier                none
+
+    font pango:             $STATUS_BAR_FONT
+    colors {
+        background #000000
+        statusline #ffffff
+
+        focused_workspace  #272822 #a6e22e #3e3d32
+        active_workspace   #333333 #5f676a #ffffff
+        inactive_workspace #75715e #3e3d32 #f8f8f2
+        urgent_workspace   #ffffff #900000 #ffffff
+
+        binding_mode       #ffffff #900000 #ffffff
+    }
+}
+
+# ------------------------------------------------
+#   Windows Theme
+# ------------------------------------------------
+
+# class                     border  backgr. text    indicator child_border
+client.focused            #4c7899 #285577 #ffffff #2e9ef4   #285577
+client.focused_inactive   #333333 #5f676a #ffffff #484e50   #5f676a
+client.unfocused          #333333 #222222 #888888 #292d2e   #222222
+client.urgent             #2f343a #900000 #ffffff #900000   #900000
+client.placeholder        #000000 #0c0c0c #ffffff #000000   #0c0c0c
+client.background         #ffffff
