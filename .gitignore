@@ -7,3 +7,6 @@ __pycache__/
 # log files
 **/btop/.config/btop/btop.log
 **/mpv/.config/mpv/mpvHistory.log
+
+# local bookmarks
+**/gtk/.config/gtk-3.0/bookmarks
