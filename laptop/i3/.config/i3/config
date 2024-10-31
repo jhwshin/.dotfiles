@@ -98,6 +98,23 @@ bindsym $MOD+bracketright exec --no-startup-id      "playerctl next"
 bindsym $MOD+bracketleft exec --no-startup-id       "playerctl previous"
 
 # ------------------------------------------------
+#   Brightness Control
+# ------------------------------------------------
+
+set $REDSHIFT "rofi -show blezz -modi blezz -auto-select -matching normal -blezz-config ~/.config/blezz/display -theme ~/.config/rofi-common/launcher.rasi"
+
+# screen brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id    "brightnessctl set 5%+"
+bindsym XF86MonBrightnessDown exec --no-startup-id  "brightnessctl --min-value=12000 set 5%-"
+
+# alternatively
+bindsym $MOD+Shift+plus exec --no-startup-id        "brightnessctl set 5%+"
+bindsym $MOD+Shift+underscore exec --no-startup-id  "brightnessctl --min-value=12000 set 5%-"
+
+# redshift
+bindsym $MOD+n exec --no-startup-id $REDSHIFT
+
+# ------------------------------------------------
 #   Scratchpad
 # ------------------------------------------------
 
