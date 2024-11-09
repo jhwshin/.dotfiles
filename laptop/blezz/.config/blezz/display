@@ -1,0 +1,4 @@
+Display:
+act(n, auto, sh -c "redshift -x; redshift", redshift)
+act(o, on, sh -c "killall redshift; redshift -x; redshift -O 3700", redshift)
+act(i, off, sh -c "killall redshift; redshift -x", redshift)

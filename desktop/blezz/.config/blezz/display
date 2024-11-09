@@ -1,0 +1,6 @@
+Display:
+act(n, auto, sh -c "redshift -x; redshift", redshift)
+act(o, on, sh -c "killall redshift; redshift -x; redshift -O 3700", redshift)
+act(i, off, sh -c "killall redshift; redshift -x", redshift)
+act(p, portrait, sh -c "xrandr --output HDMI-0 --rotate right --pos 3440x0", display)
+act(l, landscape, sh -c "xrandr --output HDMI-0 --rotate normal --pos 3440x240", display)
