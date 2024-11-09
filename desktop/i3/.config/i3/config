@@ -16,8 +16,11 @@ set $DISPLAY_2 HDMI-0
 #   System Shortcuts
 # ------------------------------------------------
 
+set $SCREENSHOT         "mkdir ~/Screenshots; flameshot gui --path ~/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S') --delay 1000"
+
 bindsym $MOD+Shift+r restart
 bindsym $MOD+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym Print exec --no-startup-id $SCREENSHOT
 
 # ------------------------------------------------
 #   Autostart
@@ -36,6 +39,7 @@ exec --no-startup-id $PLAYERCTL
 exec --no-startup-id $WALLPAPER
 exec --no-startup-id $COMPOSITOR
 exec --no-startup-id $POWER_MANAGEMENT
+
 
 # ------------------------------------------------
 #   System Tray
@@ -95,6 +99,23 @@ bindsym XF86AudioPrev exec --no-startup-id          "playerctl previous"
 bindsym $MOD+p exec --no-startup-id                 "playerctl play-pause"
 bindsym $MOD+bracketright exec --no-startup-id      "playerctl next"
 bindsym $MOD+bracketleft exec --no-startup-id       "playerctl previous"
+
+# ------------------------------------------------
+#   Brightness Control
+# ------------------------------------------------
+
+set $REDSHIFT "rofi -show blezz -modi blezz -auto-select -matching normal -blezz-config ~/.config/blezz/display -theme ~/.config/rofi-common/launcher.rasi"
+
+# screen brightness
+# bindsym XF86MonBrightnessUp exec --no-startup-id    "brightnessctl set 5%+"
+# bindsym XF86MonBrightnessDown exec --no-startup-id  "brightnessctl --min-value=12000 set 5%-"
+
+# alternatively
+# bindsym $MOD+Shift+plus exec --no-startup-id        "brightnessctl set 5%+"
+# bindsym $MOD+Shift+underscore exec --no-startup-id  "brightnessctl --min-value=12000 set 5%-"
+
+# redshift
+bindsym $MOD+n exec --no-startup-id $REDSHIFT
 
 # ------------------------------------------------
 #   Scratchpad
@@ -288,8 +309,10 @@ set $BORDER_PIXEL 1
 set $GAPS_INNER 5
 set $GAPS_OUTER -2
 
-# toggle border
+# toggle border (focused)
 bindsym $MOD+y border toggle $BORDER_PIXEL
+# toggle border (all)
+bindsym $MOD+Shift+y exec i3-msg '[class=".*"] border toggle $BORDER_PIXEL'
 
 # Set inner/outer gaps
 gaps inner $GAPS_INNER
