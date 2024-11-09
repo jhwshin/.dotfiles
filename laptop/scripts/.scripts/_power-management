@@ -5,7 +5,7 @@
 #
 #   Description:
 #       power management using xidlehook
-#           dim, lockscreen, display off, suspend
+#       dim, lockscreen, display off, suspend
 #
 #   Dependencies:
 #       - xidlehook
